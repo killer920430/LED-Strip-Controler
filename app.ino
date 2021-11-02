@@ -2,6 +2,7 @@
 #include <Keypad.h>
 
 #include "src/Color.hpp"
+#include "src/ColorsTable.hpp"
 #include "src/KeypadObserver.hpp"
 
 #define F_EPSILON 0.00001
@@ -13,21 +14,16 @@ rgbw pixels[maxNumOfPixels] = {};
 float brightness = 0.20;
 uint8_t numOfPixels = 33;
 bool needClear = false;
+uint8_t currentColor = 0;
 
-Color color{};
+Color color{colors[currentColor]};
 KeypadObserver keypadObserver;
 
 void setup()
 {
     strip.clear(maxNumOfPixels);
-    keypadObserver.registerTrigger('1', []()
-                                   { color = {255, 0, 0, 0}; });
-    keypadObserver.registerTrigger('2', []()
-                                   { color = {0, 255, 0, 0}; });
-    keypadObserver.registerTrigger('3', []()
-                                   { color = {0, 0, 255, 0}; });
-    keypadObserver.registerTrigger('4', []()
-                                   { color = {0, 0, 0, 255}; });
+    keypadObserver.registerTrigger('8', previousColor);
+    keypadObserver.registerTrigger('0', nextColor);
     keypadObserver.registerTrigger('A', increaseBrightness);
     keypadObserver.registerTrigger('B', decreaseBrightness);
     keypadObserver.registerTrigger('C', increaseNummOfPixels);
@@ -76,6 +72,24 @@ void decreaseNummOfPixels()
     if (numOfPixels > 0)
         numOfPixels -= 11;
     needClear = true;
+}
+
+void nextColor()
+{
+    if (currentColor < (numOfColors - 1))
+        ++currentColor;
+    else
+        currentColor = 0;
+    color = colors[currentColor];
+}
+
+void previousColor()
+{
+    if (currentColor > 0)
+        --currentColor;
+    else
+        currentColor = numOfColors - 1;
+    color = colors[currentColor];
 }
 
 void updateColors(Color color)
