@@ -12,6 +12,8 @@ void setup()
                                    { stripController.changeMode(StripMode::constatnt); });
     keypadObserver.registerTrigger('2', []()
                                    { stripController.changeMode(StripMode::flashing); });
+    keypadObserver.registerTrigger('3', []()
+                                   { stripController.changeMode(StripMode::fromMiddle); });
     keypadObserver.registerTrigger('8', stripController.previousColor);
     keypadObserver.registerTrigger('0', stripController.nextColor);
     keypadObserver.registerTrigger('A', stripController.increaseBrightness);

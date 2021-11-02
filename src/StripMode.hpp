@@ -4,7 +4,8 @@
 enum StripMode
 {
     constatnt,
-    flashing
+    flashing,
+    fromMiddle
 };
 
 #endif /* SRC_STRIPMODE */

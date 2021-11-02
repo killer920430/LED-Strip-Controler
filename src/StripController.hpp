@@ -24,15 +24,19 @@ public:
     static void changeMode(StripMode mode);
 
 private:
+    static void calculateMiddleLed();
+    static void resetAnimation();
+    static void setPixelColor(int pos, Color color);
     void constantMode(Color color);
     void flashingMode(Color color);
+    void fromMiddleMode(Color color);
 
     static sk6812<B, 2> strip; //Digital Pin 10
 
     static constexpr uint8_t maxNumOfPixels = 176;
     static rgbw pixels[maxNumOfPixels];
     static float brightness;
-    static uint8_t numOfPixels;
+    static int numOfPixels;
     static bool needClear;
     static uint8_t currentColor;
 
@@ -42,6 +46,12 @@ private:
     static constexpr long int minDelay = 100;
     static constexpr long int delaySteep = 100;
     static long int delay;
+
+    static int middleLed;
+    static bool singleMiddleLed;
+
+    static uint8_t phase;
+    static uint8_t ledshift;
 };
 
 #endif /* SRC_STRIPCONTROLLER */
