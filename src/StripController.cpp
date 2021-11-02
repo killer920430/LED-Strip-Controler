@@ -2,12 +2,12 @@
 #include "ColorsTable.hpp"
 
 sk6812<B, 2> StripController::strip{};
-bool StripController::needClear{false};
+rgbw StripController::pixels[maxNumOfPixels]{};
 float StripController::brightness = 0.20;
 uint8_t StripController::numOfPixels = 33;
+bool StripController::needClear{false};
 uint8_t StripController::currentColor = 0;
 Color StripController::color{colors[currentColor]};
-rgbw StripController::pixels[maxNumOfPixels]{};
 static StripMode StripController::mode{};
 static long int StripController::delay = maxDelay;
 
