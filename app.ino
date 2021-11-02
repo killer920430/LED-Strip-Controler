@@ -1,6 +1,7 @@
 #include <FAB_LED.h>
 #include <Keypad.h>
 
+#include "src/Color.hpp"
 #include "src/KeypadObserver.hpp"
 
 #define F_EPSILON 0.00001
@@ -13,16 +14,7 @@ float brightness = 0.20;
 uint8_t numOfPixels = 33;
 bool needClear = false;
 
-struct Color
-{
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-    uint8_t w;
-};
-
 Color color{};
-
 KeypadObserver keypadObserver;
 
 void setup()
