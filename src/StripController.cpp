@@ -7,12 +7,23 @@ float StripController::brightness = 0.20;
 uint8_t StripController::numOfPixels = 33;
 uint8_t StripController::currentColor = 0;
 Color StripController::color{colors[currentColor]};
-rgbw StripController::pixels[maxNumOfPixels] = {};
+rgbw StripController::pixels[maxNumOfPixels]{};
+static StripMode StripController::mode{};
+static long int StripController::delay = maxDelay;
 
 void StripController::run()
 {
-    updateColors(Color{color.r * brightness, color.g * brightness, color.b * brightness, color.w * brightness});
-    strip.sendPixels(numOfPixels, pixels);
+    switch (mode)
+    {
+    case StripMode::constatnt:
+        constantMode(Color{color.r * brightness, color.g * brightness, color.b * brightness, color.w * brightness});
+        break;
+    case StripMode::flashing:
+        flashingMode(Color{color.r * brightness, color.g * brightness, color.b * brightness, color.w * brightness});
+        break;
+    default:
+        break;
+    }
 }
 
 void StripController::setup()
@@ -54,6 +65,18 @@ void StripController::decreaseNummOfPixels()
     needClear = true;
 }
 
+static void StripController::decreaseSpeed()
+{
+    if (delay < maxDelay)
+        delay = delay + delaySteep;
+}
+
+static void StripController::increaseSpeed()
+{
+    if (delay > minDelay)
+        delay = delay - delaySteep;
+}
+
 void StripController::nextColor()
 {
     if (currentColor < (numOfColors - 1))
@@ -72,7 +95,12 @@ void StripController::previousColor()
     color = colors[currentColor];
 }
 
-void StripController::updateColors(Color color)
+void StripController::changeMode(StripMode m)
+{
+    mode = m;
+}
+
+void StripController::constantMode(Color color)
 {
     for (int i = 0; i < numOfPixels; i++)
     {
@@ -81,4 +109,42 @@ void StripController::updateColors(Color color)
         pixels[i].b = color.b;
         pixels[i].w = color.w;
     }
+    strip.sendPixels(numOfPixels, pixels);
+}
+
+void StripController::flashingMode(Color color)
+{
+    static bool on = false;
+    static unsigned long timeNow = 0;
+
+    if (millis() > timeNow + delay)
+    {
+        timeNow = millis();
+        if (on)
+            on = false;
+        else
+            on = true;
+    }
+
+    if (on)
+    {
+        for (int i = 0; i < numOfPixels; i++)
+        {
+            pixels[i].r = color.r;
+            pixels[i].g = color.g;
+            pixels[i].b = color.b;
+            pixels[i].w = color.w;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < numOfPixels; i++)
+        {
+            pixels[i].r = 0;
+            pixels[i].g = 0;
+            pixels[i].b = 0;
+            pixels[i].w = 0;
+        }
+    }
+    strip.sendPixels(numOfPixels, pixels);
 }
