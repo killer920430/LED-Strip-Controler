@@ -1,6 +1,8 @@
 #ifndef SRC_COLOR
 #define SRC_COLOR
 
+#include "Arduino.h"
+
 struct Color
 {
     uint8_t r;
