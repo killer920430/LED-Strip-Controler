@@ -1,19 +1,9 @@
 #include "StripController.hpp"
 #include "ColorsTable.hpp"
 
-sk6812<B, 2> StripController::strip{};
-rgbw StripController::pixels[maxNumOfPixels]{};
-float StripController::brightness = 0.20;
-int StripController::numOfPixels = 33;
-bool StripController::needClear{false};
-uint8_t StripController::currentColor = 0;
-Color StripController::color{colors[currentColor]};
-static StripMode StripController::mode{};
-static long int StripController::delay = maxDelay;
-static int StripController::middleLed = numOfPixels % 2;
-static bool StripController::singleMiddleLed = true;
-uint8_t StripController::phase = 0;
-uint8_t StripController::ledshift = 0;
+StripController::StripController() : color{colors[currentColor]}
+{
+}
 
 void StripController::run()
 {

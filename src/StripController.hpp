@@ -10,48 +10,49 @@
 class StripController
 {
 public:
+    StripController();
     void run();
     void setup();
-    static void tryClearLeds();
-    static void increaseBrightness();
-    static void decreaseBrightness();
-    static void increaseNummOfPixels();
-    static void decreaseNummOfPixels();
-    static void increaseSpeed();
-    static void decreaseSpeed();
-    static void nextColor();
-    static void previousColor();
-    static void changeMode(StripMode mode);
+    void tryClearLeds();
+    void increaseBrightness();
+    void decreaseBrightness();
+    void increaseNummOfPixels();
+    void decreaseNummOfPixels();
+    void increaseSpeed();
+    void decreaseSpeed();
+    void nextColor();
+    void previousColor();
+    void changeMode(StripMode mode);
 
 private:
-    static void calculateMiddleLed();
-    static void resetAnimation();
-    static void setPixelColor(int pos, Color color);
+    void calculateMiddleLed();
+    void resetAnimation();
+    void setPixelColor(int pos, Color color);
     void constantMode(Color color);
     void flashingMode(Color color);
     void fromMiddleMode(Color color);
 
-    static sk6812<B, 2> strip; //Digital Pin 10
+    sk6812<B, 2> strip{}; //Digital Pin 10
 
     static constexpr uint8_t maxNumOfPixels = 176;
-    static rgbw pixels[maxNumOfPixels];
-    static float brightness;
-    static int numOfPixels;
-    static bool needClear;
-    static uint8_t currentColor;
+    rgbw pixels[maxNumOfPixels]{};
+    float brightness{0.2};
+    int numOfPixels{33};
+    bool needClear{false};
+    uint8_t currentColor{0};
 
-    static Color color;
-    static StripMode mode;
-    static constexpr long int maxDelay = 1000;
-    static constexpr long int minDelay = 100;
-    static constexpr long int delaySteep = 100;
-    static long int delay;
+    Color color;
+    StripMode mode{};
+    const long int maxDelay = 1000;
+    const long int minDelay = 100;
+    const long int delaySteep = 100;
+    long int delay = maxDelay;
 
-    static int middleLed;
-    static bool singleMiddleLed;
+    int middleLed;
+    bool singleMiddleLed{true};
 
-    static uint8_t phase;
-    static uint8_t ledshift;
+    uint8_t phase{0};
+    uint8_t ledshift{0};
 };
 
 #endif /* SRC_STRIPCONTROLLER */

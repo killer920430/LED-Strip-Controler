@@ -14,14 +14,22 @@ void setup()
                                    { stripController.changeMode(StripMode::flashing); });
     keypadObserver.registerTrigger('3', []()
                                    { stripController.changeMode(StripMode::fromMiddle); });
-    keypadObserver.registerTrigger('8', stripController.previousColor);
-    keypadObserver.registerTrigger('0', stripController.nextColor);
-    keypadObserver.registerTrigger('A', stripController.increaseBrightness);
-    keypadObserver.registerTrigger('B', stripController.decreaseBrightness);
-    keypadObserver.registerTrigger('C', stripController.increaseNummOfPixels);
-    keypadObserver.registerTrigger('D', stripController.decreaseNummOfPixels);
-    keypadObserver.registerTrigger('*', stripController.decreaseSpeed);
-    keypadObserver.registerTrigger('#', stripController.increaseSpeed);
+    keypadObserver.registerTrigger('8', []()
+                                   { stripController.previousColor(); });
+    keypadObserver.registerTrigger('0', []()
+                                   { stripController.nextColor(); });
+    keypadObserver.registerTrigger('A', []()
+                                   { stripController.increaseBrightness(); });
+    keypadObserver.registerTrigger('B', []()
+                                   { stripController.decreaseBrightness(); });
+    keypadObserver.registerTrigger('C', []()
+                                   { stripController.increaseNummOfPixels(); });
+    keypadObserver.registerTrigger('D', []()
+                                   { stripController.decreaseNummOfPixels(); });
+    keypadObserver.registerTrigger('*', []()
+                                   { stripController.decreaseSpeed(); });
+    keypadObserver.registerTrigger('#', []()
+                                   { stripController.increaseSpeed(); });
 }
 
 void loop()
