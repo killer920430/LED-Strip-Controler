@@ -72,10 +72,5 @@ namespace animation
     {
         phase = 0;
         ledshift = 0;
-        Color color{0, 0, 0, 0};
-        for (int i = 0; i < maxNumOfPixels; i++)
-        {
-            setPixelColor(i, color);
-        }
     }
 }

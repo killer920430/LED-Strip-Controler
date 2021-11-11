@@ -46,10 +46,16 @@ namespace animation
 
     void AnimationBase::clear()
     {
+        Color color{0, 0, 0, 0};
+        for (int i = 0; i < maxNumOfPixels; i++)
+        {
+            setPixelColor(i, color);
+        }
         strip.clear(maxNumOfPixels);
+        resetAnimation();
     }
 
-    void AnimationBase::setPixelColor(int pos, Color color)
+    void AnimationBase::setPixelColor(const int &pos, const Color &color)
     {
         pixels[pos].r = color.r;
         pixels[pos].g = color.g;
@@ -66,7 +72,7 @@ namespace animation
             singleMiddleLed = false;
     }
 
-    bool AnimationBase::continueAnimation(unsigned long timeToContinue)
+    bool AnimationBase::continueAnimation(const unsigned long &timeToContinue) const
     {
         if (millis() > timeToContinue)
             return true;

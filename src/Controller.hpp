@@ -7,6 +7,12 @@
 class Controller
 {
 public:
+    Controller();
+    Controller(const Controller &) = delete;
+    Controller(Controller &&) = delete;
+    Controller &Controller::operator=(const Controller &) = delete;
+    Controller &Controller::operator=(Controller &&) = delete;
+    ~Controller();
     void run();
     void toogleOnOff();
     void changeColor();

@@ -1,5 +1,13 @@
 #include "Controller.hpp"
 
+Controller::Controller() {}
+
+Controller::~Controller()
+{
+    for (int i = 0; i < numberOfAnimaction; ++i)
+        delete animation[i];
+}
+
 void Controller::run()
 {
     animation[currentAnimation]->run();

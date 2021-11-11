@@ -1,13 +1,15 @@
 #ifndef SRC_ANIMATION_ANIMATIONBASE
 #define SRC_ANIMATION_ANIMATIONBASE
-#include "../Color.hpp"
 #include <FAB_LED.h>
+
+#include "../Color.hpp"
 
 namespace animation
 {
     class IAnimation
     {
     public:
+        virtual ~IAnimation() = default;
         virtual void run() = 0;
         virtual void resetAnimation() = 0;
         virtual void toogleOnOff() = 0;
@@ -24,9 +26,9 @@ namespace animation
         void clear() override;
 
     protected:
-        void setPixelColor(int pos, Color color);
+        void setPixelColor(const int &pos, const Color &color);
         void calculateMiddleLed();
-        bool continueAnimation(unsigned long timeToContinue);
+        bool continueAnimation(const unsigned long &timeToContinue) const;
 
         static sk6812<B, 2> strip; //Digital Pin 10
         static const uint8_t maxNumOfPixels = 176;
