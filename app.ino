@@ -6,6 +6,7 @@ Controller controller;
 
 void setup()
 {
+    keypadObserver.setup();
     keypadObserver.registerTrigger('1', []()
                                    { controller.toogleOnOff(); });
     keypadObserver.registerTrigger('2', []()
