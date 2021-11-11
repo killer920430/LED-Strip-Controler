@@ -6,14 +6,15 @@ namespace animation
 {
     sk6812<B, 2> AnimationBase::strip{};
     const uint8_t AnimationBase::maxNumOfPixels;
-    int AnimationBase::numOfPixels{33};
+    int AnimationBase::numOfPixels{100};
     rgbw AnimationBase::pixels[maxNumOfPixels]{};
     uint8_t AnimationBase::currentColor{0};
     bool AnimationBase::on{false};
     Color AnimationBase::color{colors[currentColor]};
     int AnimationBase::middleLed{0};
     bool AnimationBase::singleMiddleLed{true};
-    long int AnimationBase::delay = maxDelay;
+    constexpr int16_t AnimationBase::delays[numOfDelays];
+    uint8_t AnimationBase::delayIndex{0};
 
     AnimationBase::AnimationBase()
     {
@@ -42,6 +43,14 @@ namespace animation
             currentColor = 0;
         color = colors[currentColor];
         resetAnimation();
+    }
+
+    void AnimationBase::changeSpeed()
+    {
+        if (delayIndex < numOfDelays - 1)
+            ++delayIndex;
+        else
+            delayIndex = 0;
     }
 
     void AnimationBase::clear()

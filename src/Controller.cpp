@@ -34,4 +34,5 @@ void Controller::changeAnimation()
 
 void Controller::changeSpeed()
 {
+    animation[currentAnimation]->changeSpeed();
 }

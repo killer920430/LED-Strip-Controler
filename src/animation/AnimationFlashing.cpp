@@ -12,7 +12,7 @@ namespace animation
 
             if (continueAnimation(timeNow))
             {
-                timeNow = millis() + delay;
+                timeNow = millis() + delays[delayIndex];
                 if (ledOn)
                     ledOn = false;
                 else

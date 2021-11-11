@@ -12,7 +12,7 @@ namespace animation
 
             if (continueAnimation(timeNow))
             {
-                timeNow = millis() + delay / 10;
+                timeNow = millis() + delays[delayIndex] / 10;
                 if (run)
                     run = false;
                 else

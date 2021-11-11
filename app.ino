@@ -12,6 +12,8 @@ void setup()
                                    { controller.changeColor(); });
     keypadObserver.registerTrigger('3', []()
                                    { controller.changeAnimation(); });
+    keypadObserver.registerTrigger('4', []()
+                                   { controller.changeSpeed(); });
 }
 
 void loop()
@@ -19,5 +21,5 @@ void loop()
     keypadObserver.run();
     controller.run();
 
-    delay(100);
+    delay(1);
 }

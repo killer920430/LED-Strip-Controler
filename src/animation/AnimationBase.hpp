@@ -14,6 +14,7 @@ namespace animation
         virtual void resetAnimation() = 0;
         virtual void toogleOnOff() = 0;
         virtual void changeColor() = 0;
+        virtual void changeSpeed() = 0;
         virtual void clear();
     };
 
@@ -23,6 +24,7 @@ namespace animation
         AnimationBase();
         void toogleOnOff() override;
         void changeColor() override;
+        void changeSpeed() override;
         void clear() override;
 
     protected:
@@ -40,10 +42,9 @@ namespace animation
         static int middleLed;
         static bool singleMiddleLed;
 
-        static const long int maxDelay = 1000;
-        static const long int minDelay = 100;
-        static const long int delaySteep = 100;
-        static long int delay;
+        static const uint8_t numOfDelays = 7;
+        static constexpr int16_t delays[numOfDelays]{1, 50, 100, 150, 200, 250, 300};
+        static uint8_t delayIndex;
     };
 }
 #endif /* SRC_ANIMATION_ANIMATIONBASE */
