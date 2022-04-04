@@ -43,7 +43,7 @@ namespace animation
         static bool singleMiddleLed;
 
         static const uint8_t numOfDelays = 7;
-        static constexpr int16_t delays[numOfDelays]{1, 50, 100, 150, 200, 250, 300};
+        static constexpr float delays[numOfDelays]{1, 50, 100, 150, 200, 250, 300};
         static uint8_t delayIndex;
     };
 }

@@ -13,8 +13,8 @@ namespace animation
     Color AnimationBase::color{colors[currentColor]};
     int AnimationBase::middleLed{0};
     bool AnimationBase::singleMiddleLed{true};
-    constexpr int16_t AnimationBase::delays[numOfDelays];
-    uint8_t AnimationBase::delayIndex{0};
+    constexpr float AnimationBase::delays[numOfDelays];
+    uint8_t AnimationBase::delayIndex{2};
 
     AnimationBase::AnimationBase()
     {

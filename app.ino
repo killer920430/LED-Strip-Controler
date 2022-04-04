@@ -8,13 +8,13 @@ void setup()
 {
     keypadObserver.setup();
     keypadObserver.registerTrigger('1', []()
-                                   { controller.toogleOnOff(); });
+                                   { controller.toogleOnOff(); }); // Remote key C
     keypadObserver.registerTrigger('2', []()
-                                   { controller.changeColor(); });
+                                   { controller.changeColor(); }); // Remote key A
     keypadObserver.registerTrigger('3', []()
-                                   { controller.changeAnimation(); });
+                                   { controller.changeAnimation(); }); // Remote key D
     keypadObserver.registerTrigger('4', []()
-                                   { controller.changeSpeed(); });
+                                   { controller.changeSpeed(); }); // Remote key B
 }
 
 void loop()

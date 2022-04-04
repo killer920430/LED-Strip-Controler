@@ -25,7 +25,6 @@ private:
     animation::IAnimation *animation[numberOfAnimaction] = {new animation::AnimationStatic(),
                                                             new animation::AnimationFlashing(),
                                                             new animation::AnimationFromMiddle()};
-    // animation::AnimationStatic animationStatic{};
 };
 
 #endif /* SRC_CONTROLLER */
