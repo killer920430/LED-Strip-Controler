@@ -2,45 +2,45 @@
 
 void KeypadObserver::setup()
 {
-    pinMode(key1Pin, INPUT);
-    pinMode(key2Pin, INPUT);
-    pinMode(key3Pin, INPUT);
-    pinMode(key4Pin, INPUT);
+    pinMode(keyAPin, INPUT);
+    pinMode(keyBPin, INPUT);
+    pinMode(keyCPin, INPUT);
+    pinMode(keyDPin, INPUT);
 
-    key1LastState = digitalRead(key1Pin);
-    key2LastState = digitalRead(key2Pin);
-    key3LastState = digitalRead(key3Pin);
-    key4LastState = digitalRead(key4Pin);
+    keyALastState = digitalRead(keyAPin);
+    keyBLastState = digitalRead(keyBPin);
+    keyCLastState = digitalRead(keyCPin);
+    keyDLastState = digitalRead(keyDPin);
 }
 
 void KeypadObserver::run()
 {
-    bool keyState = digitalRead(key1Pin);
-    if (keyState != key1LastState)
+    bool keyState = digitalRead(keyAPin);
+    if (keyState != keyALastState)
     {
-        Key1Trigger();
-        key1LastState = keyState;
+        KeyATrigger();
+        keyALastState = keyState;
     }
 
-    keyState = digitalRead(key2Pin);
-    if (keyState != key2LastState)
+    keyState = digitalRead(keyBPin);
+    if (keyState != keyBLastState)
     {
-        Key2Trigger();
-        key2LastState = keyState;
+        KeyBTrigger();
+        keyBLastState = keyState;
     }
 
-    keyState = digitalRead(key3Pin);
-    if (keyState != key3LastState)
+    keyState = digitalRead(keyCPin);
+    if (keyState != keyCLastState)
     {
-        Key3Trigger();
-        key3LastState = keyState;
+        KeyCTrigger();
+        keyCLastState = keyState;
     }
 
-    keyState = digitalRead(key4Pin);
-    if (keyState != key4LastState)
+    keyState = digitalRead(keyDPin);
+    if (keyState != keyDLastState)
     {
-        Key4Trigger();
-        key4LastState = keyState;
+        KeyDTrigger();
+        keyDLastState = keyState;
     }
 }
 
@@ -48,17 +48,17 @@ void KeypadObserver::registerTrigger(char key, void (*trigger)())
 {
     switch (key)
     {
-    case '1':
-        Key1Trigger = trigger;
+    case 'A':
+        KeyATrigger = trigger;
         break;
-    case '2':
-        Key2Trigger = trigger;
+    case 'B':
+        KeyBTrigger = trigger;
         break;
-    case '3':
-        Key3Trigger = trigger;
+    case 'C':
+        KeyCTrigger = trigger;
         break;
-    case '4':
-        Key4Trigger = trigger;
+    case 'D':
+        KeyDTrigger = trigger;
         break;
     default:
         break;

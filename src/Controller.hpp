@@ -10,8 +10,8 @@ public:
     Controller();
     Controller(const Controller &) = delete;
     Controller(Controller &&) = delete;
-    Controller &Controller::operator=(const Controller &) = delete;
-    Controller &Controller::operator=(Controller &&) = delete;
+    Controller &operator=(const Controller &) = delete;
+    Controller &operator=(Controller &&) = delete;
     ~Controller();
     void run();
     void toogleOnOff();

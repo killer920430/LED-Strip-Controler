@@ -8,15 +8,11 @@ namespace animation
         {
             static bool ledOn = false;
             static unsigned long timeNow = 0;
-            Color black{0, 0, 0, 0};
 
             if (continueAnimation(timeNow))
             {
                 timeNow = millis() + delays[delayIndex];
-                if (ledOn)
-                    ledOn = false;
-                else
-                    ledOn = true;
+                ledOn = (ledOn) ? false : true;
             }
 
             if (ledOn)
@@ -30,7 +26,7 @@ namespace animation
             {
                 for (int i = 0; i < numOfPixels; i++)
                 {
-                    setPixelColor(i, black);
+                    setPixelColor(i, colorTurnOff);
                 }
             }
             strip.sendPixels(numOfPixels, pixels);

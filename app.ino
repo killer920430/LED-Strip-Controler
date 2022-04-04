@@ -7,14 +7,14 @@ Controller controller;
 void setup()
 {
     keypadObserver.setup();
-    keypadObserver.registerTrigger('1', []()
-                                   { controller.toogleOnOff(); }); // Remote key C
-    keypadObserver.registerTrigger('2', []()
-                                   { controller.changeColor(); }); // Remote key A
-    keypadObserver.registerTrigger('3', []()
-                                   { controller.changeAnimation(); }); // Remote key D
-    keypadObserver.registerTrigger('4', []()
-                                   { controller.changeSpeed(); }); // Remote key B
+    keypadObserver.registerTrigger('A', []()
+                                   { controller.changeColor(); });
+    keypadObserver.registerTrigger('B', []()
+                                   { controller.changeSpeed(); });
+    keypadObserver.registerTrigger('C', []()
+                                   { controller.toogleOnOff(); });
+    keypadObserver.registerTrigger('D', []()
+                                   { controller.changeAnimation(); });
 }
 
 void loop()

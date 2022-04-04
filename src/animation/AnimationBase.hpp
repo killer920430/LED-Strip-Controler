@@ -32,18 +32,19 @@ namespace animation
         void calculateMiddleLed();
         bool continueAnimation(const unsigned long &timeToContinue) const;
 
-        static sk6812<B, 2> strip; //Digital Pin 10
+        static sk6812<B, 2> strip; // Digital Pin 10
         static const uint8_t maxNumOfPixels = 176;
         static int numOfPixels;
         static rgbw pixels[maxNumOfPixels];
         static uint8_t currentColor;
         static bool on;
         static Color color;
+        const Color colorTurnOff{0, 0, 0, 0};
         static int middleLed;
         static bool singleMiddleLed;
 
         static const uint8_t numOfDelays = 7;
-        static constexpr float delays[numOfDelays]{1, 50, 100, 150, 200, 250, 300};
+        static constexpr uint16_t delays[numOfDelays]{1, 50, 100, 150, 200, 250, 300};
         static uint8_t delayIndex;
     };
 }

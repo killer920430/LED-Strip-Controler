@@ -6,14 +6,14 @@ namespace animation
 {
     sk6812<B, 2> AnimationBase::strip{};
     const uint8_t AnimationBase::maxNumOfPixels;
-    int AnimationBase::numOfPixels{100};
+    int AnimationBase::numOfPixels{20};
     rgbw AnimationBase::pixels[maxNumOfPixels]{};
     uint8_t AnimationBase::currentColor{0};
     bool AnimationBase::on{false};
     Color AnimationBase::color{colors[currentColor]};
     int AnimationBase::middleLed{0};
     bool AnimationBase::singleMiddleLed{true};
-    constexpr float AnimationBase::delays[numOfDelays];
+    constexpr uint16_t AnimationBase::delays[numOfDelays];
     uint8_t AnimationBase::delayIndex{2};
 
     AnimationBase::AnimationBase()
@@ -26,7 +26,7 @@ namespace animation
         if (on)
         {
             on = false;
-            strip.clear(maxNumOfPixels);
+            clear();
         }
         else
         {
@@ -55,10 +55,9 @@ namespace animation
 
     void AnimationBase::clear()
     {
-        Color color{0, 0, 0, 0};
         for (int i = 0; i < maxNumOfPixels; i++)
         {
-            setPixelColor(i, color);
+            setPixelColor(i, colorTurnOff);
         }
         strip.clear(maxNumOfPixels);
         resetAnimation();
@@ -75,17 +74,12 @@ namespace animation
     void AnimationBase::calculateMiddleLed()
     {
         middleLed = numOfPixels / 2;
-        if (numOfPixels % 2)
-            singleMiddleLed = true;
-        else
-            singleMiddleLed = false;
+        singleMiddleLed = (numOfPixels % 2) ? true : false;
     }
 
     bool AnimationBase::continueAnimation(const unsigned long &timeToContinue) const
     {
-        if (millis() > timeToContinue)
-            return true;
-        return false;
+        return (millis() > timeToContinue) ? true : false;
     }
 
 }

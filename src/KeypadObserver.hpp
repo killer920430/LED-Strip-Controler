@@ -10,18 +10,18 @@ public:
     void registerTrigger(char keyChar, void (*trigger)());
 
 private:
-    const uint8_t key1Pin{2};
-    const uint8_t key2Pin{3};
-    const uint8_t key3Pin{4};
-    const uint8_t key4Pin{5};
-    bool key1LastState;
-    bool key2LastState;
-    bool key3LastState;
-    bool key4LastState;
-    void (*Key1Trigger)(){};
-    void (*Key2Trigger)(){};
-    void (*Key3Trigger)(){};
-    void (*Key4Trigger)(){};
+    const uint8_t keyAPin{3};
+    const uint8_t keyBPin{5};
+    const uint8_t keyCPin{2};
+    const uint8_t keyDPin{4};
+    bool keyALastState;
+    bool keyBLastState;
+    bool keyCLastState;
+    bool keyDLastState;
+    void (*KeyATrigger)(){};
+    void (*KeyBTrigger)(){};
+    void (*KeyCTrigger)(){};
+    void (*KeyDTrigger)(){};
 };
 
 #endif /* SRC_KEYPADOBSERVER */

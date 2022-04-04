@@ -4,62 +4,34 @@ namespace animation
 {
     void AnimationFromMiddle::run()
     {
-        if (on)
+        if (on && !animationFinished)
         {
             static bool run = false;
             static unsigned long timeNow = 0;
-            Color fadedColor{color.r / 6, color.g / 6, color.b / 6, color.w / 6};
+            Color fadedColor{(uint8_t)(color.r / fadedFactor),
+                             (uint8_t)(color.g / fadedFactor),
+                             (uint8_t)(color.b / fadedFactor),
+                             (uint8_t)(color.w / fadedFactor)};
 
             if (continueAnimation(timeNow))
             {
                 timeNow = millis() + delays[delayIndex] / 10;
-                if (run)
-                    run = false;
-                else
-                    run = true;
+                run = (run) ? false : true;
             }
 
             if (run)
             {
                 if (phase == 0)
                 {
-                    if (singleMiddleLed)
-                    {
-                        setPixelColor(middleLed + ledshift, fadedColor);
-                        setPixelColor(middleLed - ledshift, fadedColor);
-                    }
-                    else
-                    {
-                        setPixelColor(middleLed - 1 + ledshift, fadedColor);
-                        setPixelColor(middleLed - ledshift, fadedColor);
-                    }
-                    if (ledshift == middleLed)
-                    {
-                        ledshift = 0;
-                        ++phase;
-                    }
-                    else
-                        ++ledshift;
+                    performPhase(fadedColor);
                 }
-                if (phase == 1)
+                else if (phase == 1)
                 {
-                    if (singleMiddleLed)
-                    {
-                        setPixelColor(middleLed + ledshift, color);
-                        setPixelColor(middleLed - ledshift, color);
-                    }
-                    else
-                    {
-                        setPixelColor(middleLed - 1 + ledshift, color);
-                        setPixelColor(middleLed - ledshift, color);
-                    }
-                    if (ledshift == middleLed)
-                    {
-                        ledshift = 0;
-                        ++phase;
-                    }
-                    else
-                        ++ledshift;
+                    performPhase(color);
+                }
+                else
+                {
+                    animationFinished = true;
                 }
                 run = false;
             }
@@ -72,5 +44,27 @@ namespace animation
     {
         phase = 0;
         ledshift = 0;
+        animationFinished = false;
+    }
+
+    void AnimationFromMiddle::performPhase(const Color &currentColor)
+    {
+        if (singleMiddleLed)
+        {
+            setPixelColor(middleLed + ledshift, currentColor);
+            setPixelColor(middleLed - ledshift, currentColor);
+        }
+        else
+        {
+            setPixelColor(middleLed - 1 + ledshift, currentColor);
+            setPixelColor(middleLed - ledshift, currentColor);
+        }
+        if (ledshift == middleLed)
+        {
+            ledshift = 0;
+            ++phase;
+        }
+        else
+            ++ledshift;
     }
 }
