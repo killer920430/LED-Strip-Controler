@@ -40,6 +40,9 @@ namespace animation
 
     void AnimationBase::changeColor()
     {
+        if (!on)
+            return;
+
         if (currentColor < (numOfColors - 1))
             ++currentColor;
         else
@@ -51,6 +54,9 @@ namespace animation
 
     void AnimationBase::changeSpeed()
     {
+        if (!on)
+            return;
+
         if (delayIndex < numOfDelays - 1)
             ++delayIndex;
         else
@@ -67,6 +73,8 @@ namespace animation
         strip.clear(maxNumOfPixels);
         resetAnimation();
     }
+
+    bool AnimationBase::isOn() { return on; }
 
     void AnimationBase::setPixelColor(const int &pos, const Color &color)
     {

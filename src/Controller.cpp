@@ -28,6 +28,9 @@ void Controller::changeColor()
 
 void Controller::changeAnimation()
 {
+    if (!animation[currentAnimation]->isOn())
+        return;
+
     if (currentAnimation < numberOfAnimaction - 1)
         ++currentAnimation;
     else
