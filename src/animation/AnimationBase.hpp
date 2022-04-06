@@ -3,6 +3,7 @@
 #include <FAB_LED.h>
 
 #include "../Color.hpp"
+#include "../config/ConfigMgr.hpp"
 
 namespace animation
 {
@@ -21,7 +22,7 @@ namespace animation
     class AnimationBase : public IAnimation
     {
     public:
-        AnimationBase();
+        AnimationBase(config::ConfigMgr &);
         void toogleOnOff() override;
         void changeColor() override;
         void changeSpeed() override;
@@ -31,6 +32,8 @@ namespace animation
         void setPixelColor(const int &pos, const Color &color);
         void calculateMiddleLed();
         bool continueAnimation(const unsigned long &timeToContinue) const;
+
+        config::ConfigMgr &configMgr;
 
         static sk6812<B, 2> strip; // Digital Pin 10
         static const uint8_t maxNumOfPixels = 176;
@@ -44,7 +47,7 @@ namespace animation
         static bool singleMiddleLed;
 
         static const uint8_t numOfDelays = 7;
-        static constexpr uint16_t delays[numOfDelays]{1, 50, 100, 150, 200, 250, 300};
+        static constexpr uint16_t delays[numOfDelays]{50, 100, 150, 200, 250, 300, 350};
         static uint8_t delayIndex;
     };
 }

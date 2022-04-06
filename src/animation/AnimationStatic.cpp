@@ -2,6 +2,8 @@
 
 namespace animation
 {
+    AnimationStatic::AnimationStatic(config::ConfigMgr &configMgr) : AnimationBase(configMgr) {}
+
     void AnimationStatic::run()
     {
         if (on && not animationFinished)

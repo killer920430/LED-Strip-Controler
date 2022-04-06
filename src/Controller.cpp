@@ -1,6 +1,9 @@
 #include "Controller.hpp"
 
-Controller::Controller() {}
+Controller::Controller()
+{
+    currentAnimation = configMgr.getAnimationIndex();
+}
 
 Controller::~Controller()
 {
@@ -29,6 +32,7 @@ void Controller::changeAnimation()
         ++currentAnimation;
     else
         currentAnimation = 0;
+    configMgr.setAnimationIndex(currentAnimation);
     animation[currentAnimation]->clear();
 }
 

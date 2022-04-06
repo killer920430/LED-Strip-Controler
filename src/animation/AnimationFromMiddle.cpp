@@ -2,6 +2,8 @@
 
 namespace animation
 {
+    AnimationFromMiddle::AnimationFromMiddle(config::ConfigMgr &configMgr) : AnimationBase(configMgr) {}
+
     void AnimationFromMiddle::run()
     {
         if (on && !animationFinished)

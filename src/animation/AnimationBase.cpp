@@ -16,8 +16,11 @@ namespace animation
     constexpr uint16_t AnimationBase::delays[numOfDelays];
     uint8_t AnimationBase::delayIndex{2};
 
-    AnimationBase::AnimationBase()
+    AnimationBase::AnimationBase(config::ConfigMgr &configMgr) : configMgr(configMgr)
     {
+        currentColor = configMgr.getColorIndex();
+        color = colors[currentColor];
+        delayIndex = configMgr.getDelayIndex();
         calculateMiddleLed();
     }
 
@@ -41,6 +44,7 @@ namespace animation
             ++currentColor;
         else
             currentColor = 0;
+        configMgr.setColorIndex(currentColor);
         color = colors[currentColor];
         resetAnimation();
     }
@@ -51,6 +55,7 @@ namespace animation
             ++delayIndex;
         else
             delayIndex = 0;
+        configMgr.setDelayIndex(delayIndex);
     }
 
     void AnimationBase::clear()

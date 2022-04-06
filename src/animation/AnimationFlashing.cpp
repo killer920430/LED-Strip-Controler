@@ -2,6 +2,8 @@
 
 namespace animation
 {
+    AnimationFlashing::AnimationFlashing(config::ConfigMgr &configMgr) : AnimationBase(configMgr) {}
+
     void AnimationFlashing::run()
     {
         if (on)

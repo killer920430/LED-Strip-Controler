@@ -3,6 +3,7 @@
 #include "animation/AnimationFlashing.hpp"
 #include "animation/AnimationFromMiddle.hpp"
 #include "animation/AnimationStatic.hpp"
+#include "config/ConfigMgr.hpp"
 
 class Controller
 {
@@ -22,9 +23,10 @@ public:
 private:
     uint8_t currentAnimation{0};
     static constexpr uint8_t numberOfAnimaction{3};
-    animation::IAnimation *animation[numberOfAnimaction] = {new animation::AnimationStatic(),
-                                                            new animation::AnimationFlashing(),
-                                                            new animation::AnimationFromMiddle()};
+    config::ConfigMgr configMgr{};
+    animation::IAnimation *animation[numberOfAnimaction] = {new animation::AnimationStatic(configMgr),
+                                                            new animation::AnimationFlashing(configMgr),
+                                                            new animation::AnimationFromMiddle(configMgr)};
 };
 
 #endif /* SRC_CONTROLLER */

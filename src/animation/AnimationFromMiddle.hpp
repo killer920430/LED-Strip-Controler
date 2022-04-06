@@ -7,6 +7,7 @@ namespace animation
     class AnimationFromMiddle : public AnimationBase
     {
     public:
+        AnimationFromMiddle(config::ConfigMgr &);
         void run() override;
         void resetAnimation() override;
 
