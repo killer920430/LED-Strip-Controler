@@ -7,7 +7,7 @@ namespace animation
     class AnimationStatic : public AnimationBase
     {
     public:
-        AnimationStatic(config::ConfigMgr &, Strip &);
+        AnimationStatic(config::ConfigMgr &, Strip &, Strip &, Strip &, Strip &);
         void run() override;
         void resetAnimation() override;
 

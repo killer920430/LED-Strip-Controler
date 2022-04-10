@@ -23,7 +23,7 @@ namespace animation
     class AnimationBase : public IAnimation
     {
     public:
-        AnimationBase(config::ConfigMgr &, Strip &);
+        AnimationBase(config::ConfigMgr &, Strip &, Strip &, Strip &, Strip &);
         void toogleOnOff() override;
         void changeColor() override;
         void changeSpeed() override;
@@ -31,19 +31,21 @@ namespace animation
         bool isOn() override;
 
     protected:
-        void setPixelColor(const int &pos, const CRGB &color);
-        void calculateMiddleLed();
-        bool continueAnimation(const unsigned long &timeToContinue) const;
+        void setPixelColor(const int &, const CRGB &, Strip &);
+        bool continueAnimation(const unsigned long &) const;
+        void showAll();
+        void clearAll();
+        void setStripColor(Strip &);
 
         config::ConfigMgr &configMgr;
-        Strip &strip;
+        Strip &stripFront;
+        Strip &stripBack;
+        Strip &stripLeft;
+        Strip &stripRight;
 
         static uint8_t currentColorIndex;
         static bool on;
         static CRGB color;
-        static int middleLedIndex;
-        static bool singleMiddleLed;
-
         static const uint8_t numOfDelays = 7;
         static constexpr uint16_t delays[numOfDelays]{50, 100, 150, 200, 250, 300, 350};
         static uint8_t delayIndex;

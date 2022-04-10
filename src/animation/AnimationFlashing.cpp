@@ -2,7 +2,8 @@
 
 namespace animation
 {
-    AnimationFlashing::AnimationFlashing(config::ConfigMgr &configMgr, Strip &strip) : AnimationBase(configMgr, strip) {}
+    AnimationFlashing::AnimationFlashing(config::ConfigMgr &configMgr, Strip &stripFront, Strip &stripBack, Strip &stripLeft, Strip &stripRight)
+        : AnimationBase(configMgr, stripFront, stripBack, stripLeft, stripRight) {}
 
     void AnimationFlashing::run()
     {
@@ -19,16 +20,16 @@ namespace animation
 
             if (ledOn)
             {
-                for (int i = 0; i < strip.numberOfLeds; i++)
-                {
-                    setPixelColor(i, color);
-                }
+                setStripColor(stripFront);
+                setStripColor(stripBack);
+                setStripColor(stripLeft);
+                setStripColor(stripRight);
             }
             else
             {
-                strip.clear();
+                clearAll();
             }
-            strip.show();
+            showAll();
         }
     }
 

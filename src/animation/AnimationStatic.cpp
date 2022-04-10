@@ -2,17 +2,18 @@
 
 namespace animation
 {
-    AnimationStatic::AnimationStatic(config::ConfigMgr &configMgr, Strip &strip) : AnimationBase(configMgr, strip) {}
+    AnimationStatic::AnimationStatic(config::ConfigMgr &configMgr, Strip &stripFront, Strip &stripBack, Strip &stripLeft, Strip &stripRight)
+        : AnimationBase(configMgr, stripFront, stripBack, stripLeft, stripRight) {}
 
     void AnimationStatic::run()
     {
         if (on && not animationFinished)
         {
-            for (int i = 0; i < strip.numberOfLeds; i++)
-            {
-                setPixelColor(i, color);
-            }
-            strip.show();
+            setStripColor(stripFront);
+            setStripColor(stripBack);
+            setStripColor(stripLeft);
+            setStripColor(stripRight);
+            showAll();
             animationFinished = true;
         }
     }

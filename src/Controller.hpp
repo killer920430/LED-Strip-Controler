@@ -22,13 +22,20 @@ public:
     void changeSpeed();
 
 private:
-    Strip strip1{30};
+    Strip stripFront{30, [](CRGB *leds, const int numberOfLeds)
+                     { FastLED.addLeds<NEOPIXEL, 10>(leds, numberOfLeds); }};
+    Strip stripBack{60, [](CRGB *leds, const int numberOfLeds)
+                    { FastLED.addLeds<NEOPIXEL, 9>(leds, numberOfLeds); }};
+    Strip stripLeft{40, [](CRGB *leds, const int numberOfLeds)
+                    { FastLED.addLeds<NEOPIXEL, 7>(leds, numberOfLeds); }};
+    Strip stripRight{50, [](CRGB *leds, const int numberOfLeds)
+                     { FastLED.addLeds<NEOPIXEL, 6>(leds, numberOfLeds); }};
     uint8_t currentAnimation{0};
     static constexpr uint8_t numberOfAnimaction{3};
     config::ConfigMgr configMgr{};
-    animation::IAnimation *animation[numberOfAnimaction] = {new animation::AnimationStatic(configMgr, strip1),
-                                                            new animation::AnimationFlashing(configMgr, strip1),
-                                                            new animation::AnimationFromMiddle(configMgr, strip1)};
+    animation::IAnimation *animation[numberOfAnimaction] = {new animation::AnimationStatic(configMgr, stripFront, stripBack, stripLeft, stripRight),
+                                                            new animation::AnimationFlashing(configMgr, stripFront, stripBack, stripLeft, stripRight),
+                                                            new animation::AnimationFromMiddle(configMgr, stripFront, stripBack, stripLeft, stripRight)};
 };
 
 #endif /* SRC_CONTROLLER */

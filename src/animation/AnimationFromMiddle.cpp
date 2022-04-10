@@ -2,7 +2,8 @@
 
 namespace animation
 {
-    AnimationFromMiddle::AnimationFromMiddle(config::ConfigMgr &configMgr, Strip &strip) : AnimationBase(configMgr, strip) {}
+    AnimationFromMiddle::AnimationFromMiddle(config::ConfigMgr &configMgr, Strip &stripFront, Strip &stripBack, Strip &stripLeft, Strip &stripRight)
+        : AnimationBase(configMgr, stripFront, stripBack, stripLeft, stripRight) {}
 
     void AnimationFromMiddle::run()
     {
@@ -24,11 +25,11 @@ namespace animation
             {
                 if (phase == 0)
                 {
-                    performPhase(fadedColor);
+                    performPhase(fadedColor, stripFront); // add suport for multiple strips
                 }
                 else if (phase == 1)
                 {
-                    performPhase(color);
+                    performPhase(color, stripFront); // add suport for multiple strips
                 }
                 else
                 {
@@ -37,7 +38,7 @@ namespace animation
                 run = false;
             }
 
-            strip.show();
+            stripFront.show(); // add suport for multiple strips
         }
     }
 
@@ -48,19 +49,19 @@ namespace animation
         animationFinished = false;
     }
 
-    void AnimationFromMiddle::performPhase(const CRGB &currentColor)
+    void AnimationFromMiddle::performPhase(const CRGB &currentColor, Strip &strip)
     {
-        if (singleMiddleLed)
+        if (strip.singleMiddleLed)
         {
-            setPixelColor(middleLedIndex + ledshift, currentColor);
-            setPixelColor(middleLedIndex - ledshift, currentColor);
+            setPixelColor(strip.middleLedIndex + ledshift, currentColor, strip);
+            setPixelColor(strip.middleLedIndex - ledshift, currentColor, strip);
         }
         else
         {
-            setPixelColor(middleLedIndex - 1 + ledshift, currentColor);
-            setPixelColor(middleLedIndex - ledshift, currentColor);
+            setPixelColor(strip.middleLedIndex - 1 + ledshift, currentColor, strip);
+            setPixelColor(strip.middleLedIndex - ledshift, currentColor, strip);
         }
-        if (ledshift == middleLedIndex)
+        if (ledshift == strip.middleLedIndex)
         {
             ledshift = 0;
             ++phase;

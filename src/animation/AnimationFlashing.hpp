@@ -7,7 +7,7 @@ namespace animation
     class AnimationFlashing : public AnimationBase
     {
     public:
-        AnimationFlashing(config::ConfigMgr &, Strip &);
+        AnimationFlashing(config::ConfigMgr &, Strip &, Strip &, Strip &, Strip &);
         void run() override;
         void resetAnimation() override;
     };
