@@ -59,10 +59,7 @@ namespace animation
 
     void AnimationBase::clear()
     {
-        stripFront.clear();
-        stripBack.clear();
-        stripLeft.clear();
-        stripRight.clear();
+        clearAll();
         resetAnimation();
     }
 

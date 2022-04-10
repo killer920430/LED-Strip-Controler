@@ -12,12 +12,26 @@ namespace animation
         void resetAnimation() override;
 
     private:
-        void performPhase(const CRGB &, Strip &);
+        struct StripData
+        {
+            unsigned long timeToContintue{0};
+            int syncDelay{0};
+            bool animationFinished{false};
+            uint8_t phase{0};
+            uint8_t ledshift{0};
+        };
 
-        uint8_t phase{0};
-        uint8_t ledshift{0};
+        void runStrip(Strip &, StripData &);
+        void performPhase(const CRGB &, Strip &, StripData &);
+        bool isAnimationFinished();
+        void clearStripData(StripData &);
+
         const uint8_t fadedFactor{6};
-        bool animationFinished{false};
+        CRGB fadedColor{};
+        StripData stripDataFront{};
+        StripData stripDataBack{};
+        StripData stripDataLeft{};
+        StripData stripDataRight{};
     };
 }
 

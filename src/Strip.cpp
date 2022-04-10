@@ -2,7 +2,7 @@
 
 Strip::Strip(const int &&nrOfLeds, void (*setup)(CRGB *, const int)) : numberOfLeds{nrOfLeds}
 {
-    leds = new CRGB[numberOfLeds];
+    leds = new CRGB[numberOfLeds]{};
     setup(leds, numberOfLeds);
     calculateMiddleLed();
 }
