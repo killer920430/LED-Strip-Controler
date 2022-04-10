@@ -7,12 +7,12 @@ namespace animation
     class AnimationFromMiddle : public AnimationBase
     {
     public:
-        AnimationFromMiddle(config::ConfigMgr &);
+        AnimationFromMiddle(config::ConfigMgr &, Strip &);
         void run() override;
         void resetAnimation() override;
 
     private:
-        void performPhase(const Color &);
+        void performPhase(const CRGB &);
 
         uint8_t phase{0};
         uint8_t ledshift{0};

@@ -4,22 +4,18 @@
 
 namespace animation
 {
-    sk6812<B, 2> AnimationBase::strip{};
-    const uint8_t AnimationBase::maxNumOfPixels;
-    int AnimationBase::numOfPixels{20};
-    rgbw AnimationBase::pixels[maxNumOfPixels]{};
-    uint8_t AnimationBase::currentColor{0};
+    uint8_t AnimationBase::currentColorIndex{0};
     bool AnimationBase::on{false};
-    Color AnimationBase::color{colors[currentColor]};
-    int AnimationBase::middleLed{0};
+    CRGB AnimationBase::color{colors[currentColorIndex]};
+    int AnimationBase::middleLedIndex{0};
     bool AnimationBase::singleMiddleLed{true};
     constexpr uint16_t AnimationBase::delays[numOfDelays];
     uint8_t AnimationBase::delayIndex{2};
 
-    AnimationBase::AnimationBase(config::ConfigMgr &configMgr) : configMgr(configMgr)
+    AnimationBase::AnimationBase(config::ConfigMgr &configMgr, Strip &strip) : configMgr(configMgr), strip(strip)
     {
-        currentColor = configMgr.getColorIndex();
-        color = colors[currentColor];
+        currentColorIndex = configMgr.getColorIndex();
+        color = colors[currentColorIndex];
         delayIndex = configMgr.getDelayIndex();
         calculateMiddleLed();
     }
@@ -42,13 +38,12 @@ namespace animation
     {
         if (!on)
             return;
-
-        if (currentColor < (numOfColors - 1))
-            ++currentColor;
+        if (currentColorIndex < (numOfColors - 1))
+            ++currentColorIndex;
         else
-            currentColor = 0;
-        configMgr.setColorIndex(currentColor);
-        color = colors[currentColor];
+            currentColorIndex = 0;
+        configMgr.setColorIndex(currentColorIndex);
+        color = colors[currentColorIndex];
         resetAnimation();
     }
 
@@ -66,28 +61,21 @@ namespace animation
 
     void AnimationBase::clear()
     {
-        for (int i = 0; i < maxNumOfPixels; i++)
-        {
-            setPixelColor(i, colorTurnOff);
-        }
-        strip.clear(maxNumOfPixels);
+        strip.clear();
         resetAnimation();
     }
 
     bool AnimationBase::isOn() { return on; }
 
-    void AnimationBase::setPixelColor(const int &pos, const Color &color)
+    void AnimationBase::setPixelColor(const int &pos, const CRGB &color)
     {
-        pixels[pos].r = color.r;
-        pixels[pos].g = color.g;
-        pixels[pos].b = color.b;
-        pixels[pos].w = color.w;
+        strip.setColor(color, pos);
     }
 
     void AnimationBase::calculateMiddleLed()
     {
-        middleLed = numOfPixels / 2;
-        singleMiddleLed = (numOfPixels % 2) ? true : false;
+        middleLedIndex = strip.numberOfLeds / 2;
+        singleMiddleLed = (strip.numberOfLeds % 2) ? true : false;
     }
 
     bool AnimationBase::continueAnimation(const unsigned long &timeToContinue) const

@@ -2,7 +2,7 @@
 #include "src/KeypadObserver.hpp"
 
 KeypadObserver keypadObserver{};
-Controller controller;
+Controller controller{};
 
 void setup()
 {

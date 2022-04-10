@@ -2,7 +2,7 @@
 
 namespace animation
 {
-    AnimationFromMiddle::AnimationFromMiddle(config::ConfigMgr &configMgr) : AnimationBase(configMgr) {}
+    AnimationFromMiddle::AnimationFromMiddle(config::ConfigMgr &configMgr, Strip &strip) : AnimationBase(configMgr, strip) {}
 
     void AnimationFromMiddle::run()
     {
@@ -10,10 +10,9 @@ namespace animation
         {
             static bool run = false;
             static unsigned long timeNow = 0;
-            Color fadedColor{(uint8_t)(color.r / fadedFactor),
-                             (uint8_t)(color.g / fadedFactor),
-                             (uint8_t)(color.b / fadedFactor),
-                             (uint8_t)(color.w / fadedFactor)};
+            CRGB fadedColor{(uint8_t)(color.r / fadedFactor),
+                            (uint8_t)(color.g / fadedFactor),
+                            (uint8_t)(color.b / fadedFactor)};
 
             if (continueAnimation(timeNow))
             {
@@ -38,7 +37,7 @@ namespace animation
                 run = false;
             }
 
-            strip.sendPixels(numOfPixels, pixels);
+            strip.show();
         }
     }
 
@@ -49,19 +48,19 @@ namespace animation
         animationFinished = false;
     }
 
-    void AnimationFromMiddle::performPhase(const Color &currentColor)
+    void AnimationFromMiddle::performPhase(const CRGB &currentColor)
     {
         if (singleMiddleLed)
         {
-            setPixelColor(middleLed + ledshift, currentColor);
-            setPixelColor(middleLed - ledshift, currentColor);
+            setPixelColor(middleLedIndex + ledshift, currentColor);
+            setPixelColor(middleLedIndex - ledshift, currentColor);
         }
         else
         {
-            setPixelColor(middleLed - 1 + ledshift, currentColor);
-            setPixelColor(middleLed - ledshift, currentColor);
+            setPixelColor(middleLedIndex - 1 + ledshift, currentColor);
+            setPixelColor(middleLedIndex - ledshift, currentColor);
         }
-        if (ledshift == middleLed)
+        if (ledshift == middleLedIndex)
         {
             ledshift = 0;
             ++phase;

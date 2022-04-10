@@ -1,28 +1,17 @@
 #ifndef SRC_COLORSTABLE
 #define SRC_COLORSTABLE
-#include "Color.hpp"
+#include "colorpalettes.h"
 
-const int numOfColors = 20;
+const int numOfColors = 9;
 
-Color colors[numOfColors]{{255, 0, 0, 0},
-                          {0, 255, 0, 0},
-                          {0, 0, 255, 0},
-                          {0, 0, 0, 255},
-                          {255, 255, 255, 0},
-                          {255, 255, 0, 0},
-                          {0, 255, 255, 0},
-                          {255, 0, 255, 0},
-                          {127, 255, 0, 0},
-                          {127, 0, 255, 0},
-                          {255, 127, 0, 0},
-                          {0, 127, 255, 0},
-                          {255, 0, 127, 0},
-                          {0, 255, 127, 0},
-                          {255, 127, 127, 0},
-                          {127, 255, 127, 0},
-                          {127, 127, 255, 0},
-                          {127, 255, 255, 0},
-                          {255, 127, 255, 0},
-                          {127, 255, 127, 0}};
+CRGB colors[numOfColors]{CRGB::Blue,
+                         CRGB::DarkBlue,
+                         CRGB::SkyBlue,
+                         CRGB::DarkRed,
+                         CRGB::Red,
+                         CRGB::Orange,
+                         CRGB::Green,
+                         CRGB::LawnGreen,
+                         CRGB::White};
 
 #endif /* SRC_COLORSTABLE */

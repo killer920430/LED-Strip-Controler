@@ -2,17 +2,17 @@
 
 namespace animation
 {
-    AnimationStatic::AnimationStatic(config::ConfigMgr &configMgr) : AnimationBase(configMgr) {}
+    AnimationStatic::AnimationStatic(config::ConfigMgr &configMgr, Strip &strip) : AnimationBase(configMgr, strip) {}
 
     void AnimationStatic::run()
     {
         if (on && not animationFinished)
         {
-            for (int i = 0; i < numOfPixels; i++)
+            for (int i = 0; i < strip.numberOfLeds; i++)
             {
                 setPixelColor(i, color);
             }
-            strip.sendPixels(numOfPixels, pixels);
+            strip.show();
             animationFinished = true;
         }
     }

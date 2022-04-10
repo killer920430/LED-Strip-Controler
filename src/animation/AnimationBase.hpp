@@ -1,9 +1,9 @@
 #ifndef SRC_ANIMATION_ANIMATIONBASE
 #define SRC_ANIMATION_ANIMATIONBASE
-#include <FAB_LED.h>
 
-#include "../Color.hpp"
+#include "../Strip.hpp"
 #include "../config/ConfigMgr.hpp"
+#include "pixeltypes.h"
 
 namespace animation
 {
@@ -23,7 +23,7 @@ namespace animation
     class AnimationBase : public IAnimation
     {
     public:
-        AnimationBase(config::ConfigMgr &);
+        AnimationBase(config::ConfigMgr &, Strip &);
         void toogleOnOff() override;
         void changeColor() override;
         void changeSpeed() override;
@@ -31,21 +31,17 @@ namespace animation
         bool isOn() override;
 
     protected:
-        void setPixelColor(const int &pos, const Color &color);
+        void setPixelColor(const int &pos, const CRGB &color);
         void calculateMiddleLed();
         bool continueAnimation(const unsigned long &timeToContinue) const;
 
         config::ConfigMgr &configMgr;
+        Strip &strip;
 
-        static sk6812<B, 2> strip; // Digital Pin 10
-        static const uint8_t maxNumOfPixels = 176;
-        static int numOfPixels;
-        static rgbw pixels[maxNumOfPixels];
-        static uint8_t currentColor;
+        static uint8_t currentColorIndex;
         static bool on;
-        static Color color;
-        const Color colorTurnOff{0, 0, 0, 0};
-        static int middleLed;
+        static CRGB color;
+        static int middleLedIndex;
         static bool singleMiddleLed;
 
         static const uint8_t numOfDelays = 7;
