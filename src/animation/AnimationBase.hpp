@@ -17,7 +17,7 @@ namespace animation
         virtual void changeColor() = 0;
         virtual void changeSpeed() = 0;
         virtual void clear();
-        virtual bool isOn();
+        virtual bool isOn() const;
     };
 
     class AnimationBase : public IAnimation
@@ -28,12 +28,12 @@ namespace animation
         void changeColor() override;
         void changeSpeed() override;
         void clear() override;
-        bool isOn() override;
+        bool isOn() const override;
 
     protected:
         void setPixelColor(const int &, const CRGB &, Strip &);
         bool continueAnimation(const unsigned long &) const;
-        void showAll();
+        void showAll() const;
         void clearAll();
         void setStripColor(Strip &);
 

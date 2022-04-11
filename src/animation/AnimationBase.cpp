@@ -63,7 +63,7 @@ namespace animation
         resetAnimation();
     }
 
-    bool AnimationBase::isOn() { return on; }
+    bool AnimationBase::isOn() const { return on; }
 
     void AnimationBase::setPixelColor(const int &pos, const CRGB &color, Strip &strip)
     {
@@ -75,7 +75,7 @@ namespace animation
         return (millis() > timeToContinue) ? true : false;
     }
 
-    void AnimationBase::showAll()
+    void AnimationBase::showAll() const
     {
         stripFront.show();
         stripBack.show();

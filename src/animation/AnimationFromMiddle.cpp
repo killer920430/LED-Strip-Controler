@@ -89,7 +89,7 @@ namespace animation
             stripData.ledshift += 1;
     }
 
-    bool AnimationFromMiddle::isAnimationFinished()
+    bool AnimationFromMiddle::isAnimationFinished() const
     {
         return stripDataFront.animationFinished &&
                stripDataBack.animationFinished &&

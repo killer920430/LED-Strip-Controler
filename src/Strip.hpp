@@ -7,7 +7,7 @@ class Strip
 public:
     Strip(const int &&, void (*)(CRGB *, const int));
     void setColor(const CRGB &, const int &);
-    void show();
+    void show() const;
     void clear();
 
     const int numberOfLeds;

@@ -44,7 +44,7 @@ void KeypadObserver::run()
     }
 }
 
-void KeypadObserver::registerTrigger(char key, void (*trigger)())
+void KeypadObserver::registerTrigger(const char key, void (*trigger)())
 {
     switch (key)
     {

@@ -7,7 +7,7 @@ class KeypadObserver
 public:
     void setup();
     void run();
-    void registerTrigger(char keyChar, void (*trigger)());
+    void registerTrigger(const char keyChar, void (*trigger)());
 
 private:
     const uint8_t keyAPin{3};

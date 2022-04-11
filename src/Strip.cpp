@@ -5,6 +5,7 @@ Strip::Strip(const int &&nrOfLeds, void (*setup)(CRGB *, const int)) : numberOfL
     leds = new CRGB[numberOfLeds]{};
     setup(leds, numberOfLeds);
     calculateMiddleLed();
+    FastLED.setBrightness(255);
 }
 
 void Strip::setColor(const CRGB &color, const int &pos)
@@ -12,7 +13,7 @@ void Strip::setColor(const CRGB &color, const int &pos)
     leds[pos] = color;
 }
 
-void Strip::show()
+void Strip::show() const
 {
     FastLED.show();
 }

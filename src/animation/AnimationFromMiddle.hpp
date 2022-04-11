@@ -24,7 +24,7 @@ namespace animation
 
         void runStrip(Strip &, StripData &);
         void performPhase(const CRGB &, Strip &, StripData &);
-        bool isAnimationFinished();
+        bool isAnimationFinished() const;
         void clearStripData(StripData &);
         void calculateDalays();
 
