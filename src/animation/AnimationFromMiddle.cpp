@@ -5,16 +5,16 @@ namespace animation
     AnimationFromMiddle::AnimationFromMiddle(config::ConfigMgr &configMgr, Strip &stripFront, Strip &stripBack, Strip &stripLeft, Strip &stripRight)
         : AnimationBase(configMgr, stripFront, stripBack, stripLeft, stripRight)
     {
-        // TODO FIX synchronization between strips
-        stripDataBack.syncDelay = (int)((double)stripFront.numberOfLeds / (double)stripBack.numberOfLeds * 100);
-        stripDataLeft.syncDelay = (int)((double)stripFront.numberOfLeds / (double)stripLeft.numberOfLeds * 100);
-        stripDataRight.syncDelay = (int)((double)stripFront.numberOfLeds / (double)stripRight.numberOfLeds * 100);
+        calculateDalays();
     }
 
     void AnimationFromMiddle::run()
     {
         if (on && !isAnimationFinished())
         {
+            // TODO calculateDalays() should not be needed here because delays are calculated in Ctor and in changeSpeed()
+            // TODO but for some reason delay in each strip is zero without calling calculateDalays() here
+            calculateDalays();
             runStrip(stripFront, stripDataFront);
             runStrip(stripBack, stripDataBack);
             runStrip(stripLeft, stripDataLeft);
@@ -35,12 +35,18 @@ namespace animation
                           (uint8_t)(color.b / fadedFactor)};
     }
 
+    void AnimationFromMiddle::changeSpeed()
+    {
+        AnimationBase::changeSpeed();
+        calculateDalays();
+    }
+
     void AnimationFromMiddle::runStrip(Strip &strip, StripData &stripData)
     {
         bool isRunning{false};
         if (continueAnimation(stripData.timeToContintue))
         {
-            stripData.timeToContintue = millis() + delays[delayIndex] * 1 + stripData.syncDelay;
+            stripData.timeToContintue = millis() + stripData.syncDelay;
             isRunning = (isRunning) ? false : true;
         }
 
@@ -90,6 +96,7 @@ namespace animation
                stripDataLeft.animationFinished &&
                stripDataRight.animationFinished;
     }
+
     void AnimationFromMiddle::clearStripData(StripData &strip)
     {
         strip.timeToContintue = 0;
@@ -97,5 +104,13 @@ namespace animation
         strip.animationFinished = false;
         strip.phase = 0;
         strip.ledshift = 0;
+    }
+
+    void AnimationFromMiddle::calculateDalays()
+    {
+        stripDataFront.syncDelay = delays[delayIndex] * ((double)stripFront.numberOfLeds / (double)stripFront.numberOfLeds);
+        stripDataBack.syncDelay = delays[delayIndex] * ((double)stripFront.numberOfLeds / (double)stripBack.numberOfLeds);
+        stripDataLeft.syncDelay = delays[delayIndex] * ((double)stripFront.numberOfLeds / (double)stripLeft.numberOfLeds);
+        stripDataRight.syncDelay = delays[delayIndex] * ((double)stripFront.numberOfLeds / (double)stripRight.numberOfLeds);
     }
 }

@@ -10,12 +10,13 @@ namespace animation
         AnimationFromMiddle(config::ConfigMgr &, Strip &, Strip &, Strip &, Strip &);
         void run() override;
         void resetAnimation() override;
+        void changeSpeed() override;
 
     private:
         struct StripData
         {
             unsigned long timeToContintue{0};
-            int syncDelay{0};
+            unsigned long syncDelay{0};
             bool animationFinished{false};
             uint8_t phase{0};
             uint8_t ledshift{0};
@@ -25,13 +26,14 @@ namespace animation
         void performPhase(const CRGB &, Strip &, StripData &);
         bool isAnimationFinished();
         void clearStripData(StripData &);
+        void calculateDalays();
 
-        const uint8_t fadedFactor{6};
-        CRGB fadedColor{};
         StripData stripDataFront{};
         StripData stripDataBack{};
         StripData stripDataLeft{};
         StripData stripDataRight{};
+        const uint8_t fadedFactor{6};
+        CRGB fadedColor{};
     };
 }
 
