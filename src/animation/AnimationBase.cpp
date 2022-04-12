@@ -18,6 +18,15 @@ namespace animation
         delayIndex = configMgr.getDelayIndex();
     }
 
+    void AnimationBase::run()
+    {
+        int brightness = analogRead(A5) / 4;
+        stripFront.updateBrightness(brightness);
+        stripBack.updateBrightness(brightness);
+        stripLeft.updateBrightness(brightness);
+        stripRight.updateBrightness(brightness);
+    }
+
     void AnimationBase::toogleOnOff()
     {
         if (on)
@@ -63,7 +72,10 @@ namespace animation
         resetAnimation();
     }
 
-    bool AnimationBase::isOn() const { return on; }
+    bool AnimationBase::isOn() const
+    {
+        return on;
+    }
 
     void AnimationBase::setPixelColor(const int &pos, const CRGB &color, Strip &strip)
     {

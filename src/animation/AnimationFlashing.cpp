@@ -9,6 +9,7 @@ namespace animation
     {
         if (on)
         {
+            AnimationBase::run();
             static bool ledOn = false;
             static unsigned long timeNow = 0;
 

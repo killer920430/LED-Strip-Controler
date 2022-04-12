@@ -10,6 +10,7 @@ namespace animation
 
     void AnimationFromMiddle::run()
     {
+        AnimationBase::run();
         if (on && !isAnimationFinished())
         {
             // TODO calculateDalays() should not be needed here because delays are calculated in Ctor and in changeSpeed()

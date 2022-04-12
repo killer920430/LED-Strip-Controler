@@ -24,6 +24,7 @@ namespace animation
     {
     public:
         AnimationBase(config::ConfigMgr &, Strip &, Strip &, Strip &, Strip &);
+        void run() override;
         void toogleOnOff() override;
         void changeColor() override;
         void changeSpeed() override;

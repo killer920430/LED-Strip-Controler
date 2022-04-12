@@ -25,6 +25,12 @@ void Strip::clear()
     show();
 }
 
+void Strip::updateBrightness(const int &value)
+{
+    FastLED.setBrightness(value);
+    show();
+}
+
 void Strip::calculateMiddleLed()
 {
     middleLedIndex = numberOfLeds / 2;

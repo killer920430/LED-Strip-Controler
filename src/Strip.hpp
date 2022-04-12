@@ -9,6 +9,7 @@ public:
     void setColor(const CRGB &, const int &);
     void show() const;
     void clear();
+    void updateBrightness(const int &);
 
     const int numberOfLeds;
 

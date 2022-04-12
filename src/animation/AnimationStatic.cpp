@@ -7,6 +7,7 @@ namespace animation
 
     void AnimationStatic::run()
     {
+        AnimationBase::run();
         if (on && not animationFinished)
         {
             setStripColor(stripFront);
