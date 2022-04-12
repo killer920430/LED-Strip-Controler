@@ -1,6 +1,6 @@
 #include "Controller.hpp"
 
-Controller::Controller()
+Controller::Controller(RelayController &relayController) : relayController(relayController)
 {
     currentAnimation = configMgr.getAnimationIndex();
 }
@@ -19,6 +19,10 @@ void Controller::run()
 void Controller::toogleOnOff()
 {
     animation[currentAnimation]->toogleOnOff();
+    if (animation[currentAnimation]->isOn())
+        relayController.on();
+    else
+        relayController.off();
 }
 
 void Controller::changeColor()

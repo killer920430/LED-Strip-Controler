@@ -1,11 +1,14 @@
 #include "src/Controller.hpp"
 #include "src/KeypadObserver.hpp"
+#include "src/RelayController.hpp"
 
 KeypadObserver keypadObserver{};
-Controller controller{};
+RelayController relayController{};
+Controller controller{relayController};
 
 void setup()
 {
+    relayController.setup();
     keypadObserver.setup();
     keypadObserver.registerTrigger('A', []()
                                    { controller.changeColor(); });

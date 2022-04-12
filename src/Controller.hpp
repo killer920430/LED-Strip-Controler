@@ -1,5 +1,6 @@
 #ifndef SRC_CONTROLLER
 #define SRC_CONTROLLER
+#include "RelayController.hpp"
 #include "Strip.hpp"
 #include "animation/AnimationFlashing.hpp"
 #include "animation/AnimationFromMiddle.hpp"
@@ -9,7 +10,7 @@
 class Controller
 {
 public:
-    Controller();
+    Controller(RelayController &relayController);
     Controller(const Controller &) = delete;
     Controller(Controller &&) = delete;
     Controller &operator=(const Controller &) = delete;
@@ -22,6 +23,7 @@ public:
     void changeSpeed();
 
 private:
+    RelayController &relayController;
     Strip stripFront{30, [](CRGB *leds, const int numberOfLeds)
                      { FastLED.addLeds<NEOPIXEL, 10>(leds, numberOfLeds); }};
     Strip stripBack{60, [](CRGB *leds, const int numberOfLeds)
