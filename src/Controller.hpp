@@ -1,5 +1,6 @@
 #ifndef SRC_CONTROLLER
 #define SRC_CONTROLLER
+#include "PinConfiguration.hpp"
 #include "RelayController.hpp"
 #include "Strip.hpp"
 #include "animation/AnimationFlashing.hpp"
@@ -25,13 +26,13 @@ public:
 private:
     RelayController &relayController;
     Strip stripFront{30, [](CRGB *leds, const int numberOfLeds)
-                     { FastLED.addLeds<NEOPIXEL, 10>(leds, numberOfLeds); }};
+                     { FastLED.addLeds<NEOPIXEL, LED_STRIP_1_PIN>(leds, numberOfLeds); }};
     Strip stripBack{60, [](CRGB *leds, const int numberOfLeds)
-                    { FastLED.addLeds<NEOPIXEL, 9>(leds, numberOfLeds); }};
+                    { FastLED.addLeds<NEOPIXEL, LED_STRIP_2_PIN>(leds, numberOfLeds); }};
     Strip stripLeft{40, [](CRGB *leds, const int numberOfLeds)
-                    { FastLED.addLeds<NEOPIXEL, 7>(leds, numberOfLeds); }};
+                    { FastLED.addLeds<NEOPIXEL, LED_STRIP_3_PIN>(leds, numberOfLeds); }};
     Strip stripRight{50, [](CRGB *leds, const int numberOfLeds)
-                     { FastLED.addLeds<NEOPIXEL, 6>(leds, numberOfLeds); }};
+                     { FastLED.addLeds<NEOPIXEL, LED_STRIP_4_PIN>(leds, numberOfLeds); }};
     uint8_t currentAnimation{0};
     static constexpr uint8_t numberOfAnimaction{3};
     config::ConfigMgr configMgr{};

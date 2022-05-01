@@ -1,6 +1,7 @@
 #include "AnimationBase.hpp"
 
 #include "../ColorsTable.hpp"
+#include "../PinConfiguration.hpp"
 
 namespace animation
 {
@@ -20,7 +21,7 @@ namespace animation
 
     void AnimationBase::run()
     {
-        int brightness = analogRead(A5) / 4;
+        int brightness = analogRead(BRIGHTNESS_PIN) / 4;
         stripFront.updateBrightness(brightness);
         stripBack.updateBrightness(brightness);
         stripLeft.updateBrightness(brightness);
