@@ -30,6 +30,24 @@ namespace config
         storeInEeprom();
     }
 
+    void ConfigMgr::setMaxColorIndex(const uint8_t &maxColorIndex)
+    {
+        if (currentConfig.currentColorIndex > maxColorIndex)
+            setColorIndex(0);
+    }
+
+    void ConfigMgr::setMaxDelayIndex(const uint8_t &maxDelayIndex)
+    {
+        if (currentConfig.delayIndex > maxDelayIndex)
+            setDelayIndex(0);
+    }
+
+    void ConfigMgr::setMaxAnimationIndex(const uint8_t &maxAnimationIndex)
+    {
+        if (currentConfig.currentAnimationIndex > maxAnimationIndex)
+            setAnimationIndex(0);
+    }
+
     void ConfigMgr::loadFromEeprom()
     {
         EEPROM.get(eeAddress, currentConfig);

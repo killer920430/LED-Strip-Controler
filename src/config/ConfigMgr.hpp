@@ -16,6 +16,10 @@ namespace config
         uint8_t getAnimationIndex() const;
         void setAnimationIndex(const uint8_t &);
 
+        void setMaxColorIndex(const uint8_t &);
+        void setMaxDelayIndex(const uint8_t &);
+        void setMaxAnimationIndex(const uint8_t &);
+
     private:
         void loadFromEeprom();
         void storeInEeprom();

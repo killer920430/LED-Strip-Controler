@@ -14,6 +14,8 @@ namespace animation
     AnimationBase::AnimationBase(config::ConfigMgr &configMgr, Strip &stripFront, Strip &stripBack, Strip &stripLeft, Strip &stripRight)
         : configMgr(configMgr), stripFront(stripFront), stripBack(stripBack), stripLeft(stripLeft), stripRight(stripRight)
     {
+        configMgr.setMaxColorIndex(numOfColors - 1);
+        configMgr.setMaxDelayIndex(numOfDelays - 1);
         currentColorIndex = configMgr.getColorIndex();
         color = colors[currentColorIndex];
         delayIndex = configMgr.getDelayIndex();

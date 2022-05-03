@@ -2,6 +2,7 @@
 
 Controller::Controller(RelayController &relayController) : relayController(relayController)
 {
+    configMgr.setMaxAnimationIndex(numberOfAnimaction - 1);
     currentAnimation = configMgr.getAnimationIndex();
 }
 
